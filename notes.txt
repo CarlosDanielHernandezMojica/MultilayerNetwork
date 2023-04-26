@@ -1,0 +1,4 @@
+hay que derivar la salida despues de activacion 
+
+la salida de la capa anterior se multiplica por el delta
+
