@@ -18,37 +18,21 @@ def create_folds(n_folds, path):
     data = np.array(df)
     np.random.shuffle(data)
     df_shuffled = pd.DataFrame(data, columns=columns)
-    #print(df_shuffled)
-
+    
     inputs = df_shuffled.iloc[:, : -1]
     labels = df_shuffled.iloc[:, -1]
 
     max_values = inputs[:].max()
     min_values = inputs[:].min()
     
-    # print(max_values)
-    # print(min_values)
-
-    inputs = (inputs - min_values) / (max_values - min_values)
-    # inputs["bias"] = 1
-    # print(inputs)
+    inputs[:] = (inputs[:] - min_values) / (max_values - min_values)
     
-
     inputs = np.array(inputs)
     labels = np.array(labels)
-
-    # print(inputs)
-    # print(len(inputs))
-    # print(labels)
-    # print(len(labels))
 
     folds = np.split(inputs, n_folds)
     label_folds = np.split(labels, n_folds)
 
-    # print(folds)
-    # print(len(folds))
-    # print(label_folds)
-    # print(len(label_folds))
     return folds, label_folds
 
 def init_weights(inputs_size, layer_size):
@@ -75,7 +59,7 @@ def activation_function(dot_products):
 def network_error(label, output):
 
     error = (np.mean(np.square(label - output)))
-    #error = (output - label)**2
+    
     return error
 
 def hidden_layer_error(delta_o, hidden_weights):
